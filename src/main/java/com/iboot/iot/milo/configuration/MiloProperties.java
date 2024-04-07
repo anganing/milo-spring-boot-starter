@@ -13,6 +13,7 @@ import static com.iboot.iot.milo.configuration.Constants.PREFIX;
 @Data
 @ConfigurationProperties(prefix = PREFIX)
 public class MiloProperties {
+    private Boolean banner = true;
     /**
      * whether to enable the component
      */

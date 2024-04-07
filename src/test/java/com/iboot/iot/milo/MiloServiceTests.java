@@ -59,7 +59,7 @@ class MiloServiceTests {
     }
 
     @Test
-    void Test() {
+    void subscriptionTest() {
         List<String> ids = Lists.newArrayList("ns=2;s=Dynamic/RandomDouble");
         miloService.subscriptionFromOpcUa(ids, "rgv", ((identifier, value) -> {
             log.info("identifier:'{}' , value:{}", identifier, value);

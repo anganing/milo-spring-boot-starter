@@ -24,11 +24,16 @@ public class MiloAutoConfiguration {
 
     public MiloAutoConfiguration(MiloProperties properties) {
         this.properties = properties;
+        printBanner(properties.getBanner());
     }
 
+    /**
+     * core auto-configuration
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean({OpcUaClientManager.class})
-    protected OpcUaClientManager opcUaClientManager() {
+    public OpcUaClientManager opcUaClientManager() {
         // OpcUaClientFactory can create a instance of OpcUaClient
         OpcUaClientFactory opcUaClientFactory = new OpcUaClientFactory(properties);
 
@@ -46,5 +51,17 @@ public class MiloAutoConfiguration {
     @DependsOn("opcUaClientManager")
     public MiloService miloService(OpcUaClientManager opcUaClientManager) {
         return new MiloService(opcUaClientManager, properties);
+    }
+
+    private void printBanner(Boolean banner) {
+        if (!banner) {
+            return;
+        }
+        System.out.print("  _ _                 _                        \n" +
+                " (_) |__   ___   ___ | |_   ___ ___  _ __ ___  \n" +
+                " | | '_ \\ / _ \\ / _ \\| __| / __/ _ \\| '_ ` _ \\ \n" +
+                " | | |_) | (_) | (_) | |_ | (_| (_) | | | | | |\n" +
+                " |_|_.__/ \\___/ \\___/ \\__(_)___\\___/|_| |_| |_|\n");
+        System.out.println(":: milo-spring-boot-starter ::        (v1.0.0)\n");
     }
 }
